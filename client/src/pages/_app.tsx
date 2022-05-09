@@ -27,13 +27,13 @@ const httpLink = new HttpLink({
 const authMiddleware = new ApolloLink((operation, forward) => {
 	// add the authorization to the headers
 	operation.setContext(({ headers = {} }) => ({
-		headers: {
-			...headers,
-			// TODO: 액세스토큰을 여기 담아서 요청들에 보내기 완료. 제대로 작동하는지 체크 필요
-			Authorization: getCookies().accessToken
-				? `Bearer ${getCookies().accessToken}`
-				: ''
-		}
+		// headers: {
+		// 	...headers,
+		// 	// TODO: 액세스토큰을 여기 담아서 요청들에 보내기 완료. 제대로 작동하는지 체크 필요
+		// 	Authorization: getCookies().accessToken
+		// 		? `Bearer ${getCookies().accessToken}`
+		// 		: ''
+		// }
 	}))
 
 	return forward(operation)
@@ -54,8 +54,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 				// 액세스 토큰 전달해서 받아온 유저 정보를 userDataVar 에 저장
 				axios({
 					method: 'get',
-					url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`,
-					headers: { Authorization: `Bearer ${getCookies().accessToken}` }
+					url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`
+					// headers: { Authorization: `Bearer ${getCookies().accessToken}` }
 				})
 					.then(function (res) {
 						userDataVar(res.data)
@@ -76,10 +76,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 								.then(function (res) {
 									axios({
 										method: 'get',
-										url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`,
-										headers: {
-											Authorization: `Bearer ${getCookies().accessToken}`
-										}
+										url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`
+										// headers: {
+										// 	Authorization: `Bearer ${getCookies().accessToken}`
+										// }
 									})
 										.then(function (res) {
 											userDataVar(res.data)
