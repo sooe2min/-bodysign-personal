@@ -166,6 +166,7 @@ const UserInfo: NextPage = () => {
 								<span className="font-thin">{data.user.phoneNumber}</span>
 							) : (
 								<input
+									className={isModify ? 'ring-2 ring-[#FED06E]' : ''}
 									type="text"
 									defaultValue={
 										data.user.phoneNumber
@@ -323,7 +324,9 @@ const UserInfo: NextPage = () => {
 												}
 											})
 										} catch (error) {
-											alert('회원 탈퇴에 실패했습니다. 다시 시도해 주세요.')
+											alert(
+												'회원 탈퇴에 실패했습니다. 다시 시도해 주세요.'
+											)
 										}
 										modalVar(false)
 									}}>
