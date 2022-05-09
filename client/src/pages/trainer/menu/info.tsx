@@ -168,6 +168,7 @@ const TrainerInfo: NextPage = () => {
 								</span>
 							) : (
 								<input
+									className={isModify ? 'ring-2 ring-[#FED06E]' : ''}
 									type="text"
 									defaultValue={
 										data.trainer.phoneNumber

@@ -199,7 +199,7 @@ const Ledger: NextPage = () => {
 							minDate={startDate}
 						/>
 						<button
-							className="p-[0.6rem] bg-[#FDAD00] border rounded-2xl"
+							className="p-[0.6rem] bg-[#FDAD00] border rounded-2xl min-w-max"
 							type="submit">
 							조회
 						</button>
