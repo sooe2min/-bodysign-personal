@@ -1,6 +1,6 @@
 const WHITE_LIST =
 	process.env.NODE_ENV === 'prod'
-		? /(https:\/\/)?(([^.]+)\.)?bodysign-personal.netlify.app/gi
+		? /(https:\/\/)?(([^.]+)\.)?bodysign-personal.vercel.app/gi
 		: new RegExp(
 				'http://localhost:' +
 					`(${process.env.PORT}|${process.env.CLIENT_PORT})`,
