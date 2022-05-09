@@ -9,8 +9,7 @@
 
 영화를 사랑하는 사람들이 모여 소통하는 커뮤니티 서비스입니다.
 
-- 서비스 주소: 
+- 서비스 주소: https://bodysign-personal.netlify.app
 - 회고: [사이드 프로젝트 회고](https://smss.netlify.app/2022-04-25-Side-Project/)
 
 ---
-
