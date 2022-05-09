@@ -1,0 +1,532 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Img {
+  id: Int
+  url: String!
+  chatId: Int
+  userId: Int
+  trainerId: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  chat: Chat!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Inbody {
+  id: Int!
+  bodyWeight: Float!
+  muscleWeight: Float!
+  bodyFat: Float!
+  status: String!
+  measuredDate: DateTime!
+  userId: Int!
+  user: User!
+}
+
+type RefreshToken {
+  id: Int!
+  targetType: String!
+  targetId: Int!
+  refreshToken: String!
+  providerId: Int
+}
+
+type SessionExerciseVolume {
+  id: Int!
+  reps: Int!
+  sets: Int!
+  weight: Float!
+  seq: Int!
+  sessionExerciseId: Int!
+  sessionExercise: SessionExercise!
+}
+
+type SessionExercise {
+  id: Int!
+  name: String!
+  sessionId: Int!
+  exerciseCategoryName: String!
+  session: Session!
+  sessionExerciseVolumes: [SessionExerciseVolume]
+}
+
+type Session {
+  id: Int
+  userId: Int!
+  trainerId: Int!
+  status: String!
+  feedback: String
+  sentFeedback: Boolean!
+  completedSession: Boolean!
+  date: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+  trainer: Trainer!
+  sessionExercises: [SessionExercise]
+}
+
+type SessionHistory {
+  id: Int
+  status: String!
+  date: DateTime!
+  costPerSession: Int!
+  totalCount: Int!
+  usedCount: Int!
+  commission: Int!
+  userId: Int!
+  trainerId: Int!
+  user: User!
+  trainer: Trainer!
+}
+
+type NonRegisteredUser {
+  id: Int
+  userName: String!
+  phoneNumber: String!
+  graduate: Boolean!
+  gender: String!
+  status: String!
+  trainerId: Int!
+  userCategoryId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  trainer: Trainer!
+  userCategory: UserCategory!
+}
+
+type UserCategory {
+  id: Int
+  status: String!
+  name: String!
+  trainerId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  trainer: Trainer!
+  users: [User]
+  nonRegisteredUsers: [NonRegisteredUser]
+}
+
+type User {
+  id: Int!
+  email: String!
+  userName: String!
+  password: String
+  birthDate: DateTime!
+  phoneNumber: String!
+  gender: String!
+  graduate: Boolean!
+  status: String!
+  loginType: String!
+  trainerId: Int
+  dbPasswordSalt: String
+  userCategoryId: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  trainer: Trainer!
+  chats: [Chat!]!
+  sessions: [Session!]!
+  inbodies: [Inbody!]!
+  sessionHistories: [SessionHistory!]!
+  userCategory: UserCategory!
+}
+
+type Chat {
+  id: Int
+  text: String!
+  userId: Int!
+  user: User!
+  trainerId: Int!
+  status: String!
+  sender: String!
+  seen: Boolean!
+  trainer: Trainer!
+  imgs: [Img]
+}
+
+type Exercise {
+  id: Int
+  name: String!
+  exerciseCategoryId: Int!
+  exerciseCategory: ExerciseCategory!
+}
+
+type ExerciseCategory {
+  id: Int
+  name: String!
+  trainerId: Int!
+  trainer: Trainer!
+  exercises: [Exercise]
+}
+
+type TrainerInterest {
+  id: Int
+  interest: String!
+  trainerId: Int!
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  trainer: Trainer!
+}
+
+type Trainer {
+  id: Int!
+  email: String!
+  userName: String!
+  password: String
+  birthDate: DateTime
+  phoneNumber: String
+  gender: String!
+  status: String!
+  loginType: String!
+  dbPasswordSalt: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  users: [User]
+  chats: [Chat]
+  sessions: [Session]
+  exerciseCategories: [ExerciseCategory]
+  nonRegisteredUsers: [NonRegisteredUser]
+  userCategories: [UserCategory]
+  sessionHistories: [SessionHistory!]!
+  trainerInterests: [TrainerInterest]
+}
+
+type Query {
+  findImgsByUserIdAndTrainerId(findImgsInput: FindImgsInput!): [Img!]!
+  getImg(id: Int!): Img!
+  chats: [Chat!]!
+  chat(id: Int!): Chat!
+  findChatsByUserIdAndTrainerId(findChatsInput: FindChatsInput!): [Chat!]!
+  users: [User!]!
+  user(id: Int!): User!
+  userEmail(email: String!): User!
+  trainers: [Trainer!]!
+  trainer(id: Int!): Trainer!
+  findOneUserByPhoneNumber(phoneNumber: String!): User!
+  sessions: [Session!]!
+  session(id: Int!): Session!
+  findAllSessionsByUserId(userId: Int!): [Session!]!
+  findAllSessionsByTrainerId(trainerId: Int!): [Session!]!
+  sessionExercises: [SessionExercise!]!
+  sessionExercise(id: Int!): SessionExercise!
+  exerciseCategories: [ExerciseCategory!]!
+  exerciseCategory(id: Int!): ExerciseCategory!
+  exercises: [Exercise!]!
+  exercise(id: Int!): Exercise!
+  nonRegisteredUsers: [NonRegisteredUser!]!
+  nonRegisteredUser(id: Int!): NonRegisteredUser!
+  userCategories: [UserCategory!]!
+  userCategory(id: Int!): UserCategory!
+  sessionHistories: [SessionHistory!]!
+  sessionHistory(id: Int!): SessionHistory!
+  inbodies: [Inbody!]!
+  inbody(id: Int!): Inbody!
+  refreshToken(targetType: String!, targetId: Int!): RefreshToken!
+  sessionExerciseVolumes: [SessionExerciseVolume!]!
+  sessionExerciseVolume(id: Int!): SessionExerciseVolume!
+}
+
+input FindImgsInput {
+  userId: Int!
+  trainerId: Int!
+  page: Int!
+  per: Int!
+}
+
+input FindChatsInput {
+  userId: Int!
+  trainerId: Int!
+  page: Int!
+  per: Int!
+}
+
+type Mutation {
+  removeImg(id: Int!): Boolean!
+  bulkRemoveImg(ids: [Int!]!): Boolean!
+  createImg(createImgInput: CreateImgInput!): Img!
+  createChat(createChatInput: CreateChatInput!): Chat!
+  updateChat(updateChatInput: UpdateChatInput!): Chat!
+  removeChat(id: Int!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  createSocialUser(createSocialUserInput: CreateSocialUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  updatePasswordUser(updatePasswordUserInput: UpdatePasswordUserInput!): User!
+  createTrainer(createTrainerInput: CreateTrainerInput!): Trainer!
+  createSocialTrainer(createSocialTrainerInput: CreateSocialTrainerInput!): Trainer!
+  updateTrainer(updateTrainerInput: UpdateTrainerInput!): Trainer!
+  removeTrainer(id: Int!): Trainer!
+  updatePasswordTrainer(updatePasswordTrainerInput: UpdatePasswordTrainerInput!): Trainer!
+  createSession(createSessionInput: CreateSessionInput!): Session!
+  updateSession(updateSessionInput: UpdateSessionInput!): Session!
+  removeSession(id: Int!): Session!
+  createSessionExercise(createSessionExerciseInput: CreateSessionExerciseInput!): SessionExercise!
+  bulkCreateSessionExercises(exerciseCategoryNames: [String!]!, names: [String!]!, sessionId: Int!): [SessionExercise!]!
+  removeSessionExercise(id: Int!): Boolean!
+  createExerciseCategory(createExerciseCategoryInput: CreateExerciseCategoryInput!): ExerciseCategory!
+  updateExerciseCategory(updateExerciseCategoryInput: UpdateExerciseCategoryInput!): ExerciseCategory!
+  removeExerciseCategory(id: Int!): Boolean!
+  bulkRemoveExerciseCategory(ids: [Int!]!): Boolean!
+  createExercise(createExerciseInput: CreateExerciseInput!): Exercise!
+  updateExercise(updateExerciseInput: UpdateExerciseInput!): Exercise!
+  removeExercise(id: Int!): Exercise!
+  createNonRegisteredUser(createNonRegisteredUserInput: CreateNonRegisteredUserInput!): NonRegisteredUser!
+  updateNonRegisteredUser(updateNonRegisteredUserInput: UpdateNonRegisteredUserInput!): NonRegisteredUser!
+  removeNonRegisteredUser(id: Int!): NonRegisteredUser!
+  createUserCategory(createUserCategoryInput: CreateUserCategoryInput!): UserCategory!
+  updateUserCategory(updateUserCategoryInput: UpdateUserCategoryInput!): UserCategory!
+  removeUserCategory(id: Int!): UserCategory!
+  createSessionHistory(createSessionHistoryInput: CreateSessionHistoryInput!): SessionHistory!
+  updateSessionHistory(updateSessionHistoryInput: UpdateSessionHistoryInput!): SessionHistory!
+  removeSessionHistory(id: Int!): SessionHistory!
+  createInbody(createInbodyInput: CreateInbodyInput!): Inbody!
+  updateInbody(updateInbodyInput: UpdateInbodyInput!): Inbody!
+  removeInbody(id: Int!): Inbody!
+  createRefreshToken(createRefreshTokenInput: CreateRefreshTokenInput!): RefreshToken!
+  createSessionExerciseVolume(createSessionExerciseVolumeInput: CreateSessionExerciseVolumeInput!): SessionExerciseVolume!
+  updateSessionExerciseVolume(updateSessionExerciseVolumeInput: UpdateSessionExerciseVolumeInput!): SessionExerciseVolume!
+  removeSessionExerciseVolume(id: Int!): Boolean!
+}
+
+input CreateImgInput {
+  url: String!
+  chatId: Int
+}
+
+input CreateChatInput {
+  userId: Int!
+  trainerId: Int!
+  text: String!
+  sender: String!
+  imgIds: [Int!]
+}
+
+input UpdateChatInput {
+  userId: Int
+  trainerId: Int
+  text: String
+  sender: String
+  imgIds: [Int!]
+  id: Int!
+}
+
+input CreateUserInput {
+  email: String!
+  userName: String!
+  password: String!
+  birthDate: DateTime!
+  phoneNumber: String!
+  gender: String!
+  loginType: String!
+}
+
+input CreateSocialUserInput {
+  email: String!
+  userName: String!
+  birthDate: DateTime!
+  phoneNumber: String!
+  gender: String!
+  loginType: String!
+}
+
+input UpdateUserInput {
+  id: Int!
+  trainerId: Int
+  graduate: Boolean
+  status: String
+  userCategoryId: Int
+  birthDate: DateTime
+  phoneNumber: String
+  gender: String
+}
+
+input UpdatePasswordUserInput {
+  id: Int!
+  prevPassword: String!
+  nowPassword: String!
+}
+
+input CreateTrainerInput {
+  email: String!
+  userName: String!
+  password: String!
+  gender: String!
+  loginType: String!
+  interests: [String!]
+}
+
+input CreateSocialTrainerInput {
+  email: String!
+  userName: String!
+  gender: String!
+  loginType: String!
+  interests: [String!]
+}
+
+input UpdateTrainerInput {
+  email: String
+  userName: String
+  password: String
+  gender: String
+  loginType: String
+  interests: [String!]
+  id: Int!
+  birthDate: DateTime
+  phoneNumber: String
+  status: String
+}
+
+input UpdatePasswordTrainerInput {
+  id: Int!
+  prevPassword: String!
+  nowPassword: String!
+}
+
+input CreateSessionInput {
+  userId: Int!
+  trainerId: Int!
+  status: String!
+  feedback: String
+  date: DateTime
+}
+
+input UpdateSessionInput {
+  userId: Int
+  trainerId: Int
+  status: String
+  feedback: String
+  date: DateTime
+  id: Int!
+  sentFeedback: Boolean
+  completedSession: Boolean
+}
+
+input CreateSessionExerciseInput {
+  name: String!
+  sessionId: Int!
+  exerciseCategoryName: String!
+}
+
+input CreateExerciseCategoryInput {
+  trainerId: Int!
+  name: String!
+}
+
+input UpdateExerciseCategoryInput {
+  trainerId: Int
+  name: String
+  id: Int!
+}
+
+input CreateExerciseInput {
+  exerciseCategoryId: Int!
+  name: String!
+}
+
+input UpdateExerciseInput {
+  exerciseCategoryId: Int
+  name: String
+  id: Int!
+}
+
+input CreateNonRegisteredUserInput {
+  trainerId: Int!
+  userCategoryId: Int!
+  userName: String!
+  phoneNumber: String
+  gender: String
+  status: String
+  graduate: Boolean
+}
+
+input UpdateNonRegisteredUserInput {
+  trainerId: Int
+  userCategoryId: Int
+  userName: String
+  phoneNumber: String
+  gender: String
+  status: String
+  graduate: Boolean
+  id: Int!
+}
+
+input CreateUserCategoryInput {
+  trainerId: Int!
+  name: String!
+  status: String
+}
+
+input UpdateUserCategoryInput {
+  trainerId: Int
+  name: String
+  status: String
+  id: Int!
+}
+
+input CreateSessionHistoryInput {
+  userId: Int!
+  date: DateTime!
+  costPerSession: Int!
+  totalCount: Int!
+  status: String
+  commission: Int
+}
+
+input UpdateSessionHistoryInput {
+  userId: Int
+  date: DateTime!
+  costPerSession: Int!
+  totalCount: Int!
+  status: String!
+  commission: Int!
+  id: Int!
+  usedCount: Int!
+}
+
+input CreateInbodyInput {
+  userId: Int!
+  bodyWeight: Float!
+  muscleWeight: Float!
+  bodyFat: Float!
+  measuredDate: DateTime!
+}
+
+input UpdateInbodyInput {
+  userId: Int
+  bodyWeight: Float
+  muscleWeight: Float
+  bodyFat: Float
+  measuredDate: DateTime
+  id: Int!
+  status: String
+}
+
+input CreateRefreshTokenInput {
+  targetId: Int!
+  targetType: String!
+  refreshToken: String
+  providerId: String
+}
+
+input CreateSessionExerciseVolumeInput {
+  sessionExerciseId: Int!
+  reps: Int!
+  sets: Int!
+  weight: Float!
+}
+
+input UpdateSessionExerciseVolumeInput {
+  sessionExerciseId: Int
+  reps: Int
+  sets: Int
+  weight: Float
+  id: Int!
+  seq: Int
+}

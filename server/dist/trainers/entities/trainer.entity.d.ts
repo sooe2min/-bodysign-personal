@@ -1,0 +1,35 @@
+import { Chat } from '../../chats/entities/chat.entity';
+import { ExerciseCategory } from 'src/exercise-categories/entities/exercise-category.entity';
+import GenderTypes from '../../types/gender.types';
+import GeneralStatusTypes from '../../types/generalStatus.types';
+import LoginTypes from 'src/types/login.types';
+import { NonRegisteredUser } from 'src/non-registered-users/entities/non-registered-user.entity';
+import { RefreshToken } from 'src/refresh-tokens/entities/refreshToken.entity';
+import { Session } from '../../sessions/entities/session.entity';
+import { SessionHistory } from 'src/session-histories/entities/session-history.entity';
+import { TrainerInterest } from 'src/trainer-interest/entities/trainerInterest.entity';
+import { User } from '../../users/entities/user.entity';
+import { UserCategory } from 'src/user-categories/entities/user-category.entity';
+export declare class Trainer {
+    id: number;
+    email: string;
+    userName: string;
+    password: string;
+    birthDate: Date;
+    phoneNumber: string;
+    gender: GenderTypes;
+    status: GeneralStatusTypes;
+    loginType: LoginTypes;
+    dbPasswordSalt: string;
+    createdAt: Date;
+    updatedAt: Date;
+    users?: User[];
+    chats?: Chat[];
+    sessions?: Session[];
+    exerciseCategories?: ExerciseCategory[];
+    nonRegisteredUsers?: NonRegisteredUser[];
+    userCategories?: UserCategory[];
+    sessionHistories?: SessionHistory[];
+    trainerInterests?: TrainerInterest[];
+    refreshToken: RefreshToken;
+}
