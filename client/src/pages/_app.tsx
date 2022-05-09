@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
 		if (router.pathname === '/') return
 		if (router.pathname === '/signup') return
-		if (!getCookies().accessToken) router.push('/')
+		// if (!getCookies().accessToken) router.push('/')
 		if (userData) return
 		else {
 			try {
