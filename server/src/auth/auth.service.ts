@@ -110,20 +110,9 @@ export class AuthService {
 			})
 		).refreshToken
 
-		console.log(owner instanceof User)
-		console.log(
-			this.configService.get(
-				owner instanceof User ? 'userAuthLogin' : 'trainerAuthLogin'
-			)
-		)
-		console.log('3', process.env.USER_AUTH_LOGIN)
-		console.log('3', process.env.TRAINER_AUTH_LOGIN)
-
 		const redirectUrl = this.configService.get(
 			owner instanceof User ? 'userAuthLogin' : 'trainerAuthLogin'
 		)
-
-		console.log(redirectUrl)
 
 		return { accessToken, refreshToken, redirectUrl }
 	}
