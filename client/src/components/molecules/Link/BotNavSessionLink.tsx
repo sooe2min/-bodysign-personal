@@ -1,9 +1,16 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
+import useSessionStorage from '../../../hooks/useSessionStorage'
 import LinkProps from '../../../types/LinkProps'
 import BotNavSessionIcon from '../../atoms/icons/BotNavSessionIcon'
 
 const BotNavSessionLink = ({ variant, pathName }: LinkProps) => {
+	const [_, setMangedMemberInfo] = useSessionStorage('mangedMemberInfo')
+
+	useEffect(() => {
+		setMangedMemberInfo('')
+	}, [])
+
 	let href = ''
 	if (variant === 'Trainer') {
 		href = '/trainer/session'
