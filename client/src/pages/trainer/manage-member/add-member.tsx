@@ -112,12 +112,15 @@ const AddMember: NextPage = () => {
 						type="text"
 						{...register('phone', {
 							required: true,
-							pattern: /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/
+							pattern: {
+								value: /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/,
+								message: '붙임표(-)는 제외하고 입력해주세요.'
+							}
 						})}
 					/>
-					{errors.phone && (
+					{errors.phone?.type === 'pattern' && (
 						<div className="text-[16px] text-red-500 mt-[0.4rem] text-center">
-							붙임표(-)는 제외하고 입력해주세요.
+							{errors.phone.message}
 						</div>
 					)}
 				</div>
