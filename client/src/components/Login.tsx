@@ -3,11 +3,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import {
-	accessTokenVar,
-	loginTypeVar,
-	refreshTokenVar
-} from '../graphql/vars'
+import { loginTypeVar } from '../graphql/vars'
 
 const Login: NextPage = () => {
 	const [form, setForm] = useState({
@@ -49,8 +45,8 @@ const Login: NextPage = () => {
 				)
 				.then(function (res) {
 					// 액세스 토큰과 리프레쉬 토큰을 var 에 담아두기
-					accessTokenVar(res.data.accessToken)
-					refreshTokenVar(res.data.refereshToken)
+					// accessTokenVar(res.data.accessToken)
+					// refreshTokenVar(res.data.refereshToken)
 					// ! 여기서 유저나 트레이너 페이지로 이동할 때 해당 유저의 정보를 받아서 이동 (app.tsx에서)
 					router.push(res.data.redirectUrl)
 				})
