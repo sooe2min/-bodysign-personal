@@ -42,7 +42,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter()
 	const userData = useReactiveVar(userDataVar)
-	
+
 	useEffect(() => {
 		if (router.pathname === '/') return
 		if (router.pathname === '/signup') return
@@ -64,7 +64,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 						if (err.request.status === 401) {
 							// 리프레쉬 토큰으로 액세스 토큰 요청하기
 							axios
-								.post( 
+								.post(
 									`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/accessToken`,
 									{
 										refreshToken: getCookies().refreshToken
@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 										})
 										.catch(function (error) {
 											// 여기는 auth/profile 요청에 대한 에러
-											alert('유저 정보를 불러오지 못했습니다.')
+											alert('유저 정보를 불러오지 못했습니다..')
 										})
 								})
 								.catch(function (error) {
@@ -114,7 +114,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 					name="viewport"
 					content="width=device-width, height=device-height, initial-scale=1.0"
 				/>
-				<meta name="google-site-verification" content="oojpITtzz6oGU6-ExzRxY0VVCJkgJ-gJg_M0p6zeRDo" />
+				<meta
+					name="google-site-verification"
+					content="oojpITtzz6oGU6-ExzRxY0VVCJkgJ-gJg_M0p6zeRDo"
+				/>
 			</Head>
 			<ApolloProvider client={client}>
 				<Layout>
