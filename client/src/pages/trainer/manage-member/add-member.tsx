@@ -112,6 +112,8 @@ const AddMember: NextPage = () => {
 						type="text"
 						{...register('phone', {
 							required: true,
+							minLength: 10,
+							maxLength: 11,
 							pattern: {
 								value: /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/,
 								message: '붙임표(-)는 제외하고 입력해주세요.'
@@ -121,6 +123,16 @@ const AddMember: NextPage = () => {
 					{errors.phone?.type === 'pattern' && (
 						<div className="text-[16px] text-red-500 mt-[0.4rem] text-center">
 							{errors.phone.message}
+						</div>
+					)}
+					{errors.phone?.type === 'minLength' && (
+						<div className="text-[16px] text-red-500 mt-[0.4rem] text-center">
+							휴대폰 번호가 너무 짧아요.
+						</div>
+					)}
+					{errors.phone?.type === 'maxLength' && (
+						<div className="text-[16px] text-red-500 mt-[0.4rem] text-center">
+							휴대폰 번호가 너무 길어요.
 						</div>
 					)}
 				</div>
