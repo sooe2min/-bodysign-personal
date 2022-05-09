@@ -6,7 +6,7 @@ interface LayoutProps {
 	children: React.ReactNode
 }
 
-const hrefLists = [
+const noneBottomBarLists = [
 	'/trainer',
 	'/user',
 	'/trainer/manage-member',
@@ -23,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
 	const [checkHrefPathName, setCheckHrefPathName] = useState(false)
 
 	useEffect(() => {
-		if (hrefLists.includes(pathName)) {
+		if (noneBottomBarLists.includes(pathName)) {
 			setCheckHrefPathName(true)
 		} else {
 			setCheckHrefPathName(false)
@@ -36,12 +36,14 @@ const Layout = ({ children }: LayoutProps) => {
 				className={`
 			${
 				checkHrefPathName === true ? 'mb-[6.3rem]' : ''
-			} sm-max:w-screen sm:w-screen sm:mx-auto p-[2rem] font-IBM`}>
+			} sm-max:w-screen sm:w-[680px] sm:mx-auto p-[2rem] font-IBM`}>
 				{children}
 			</div>
-			{checkHrefPathName === true ? (
-				<BottomBar pathName={pathName} />
-			) : null}
+			<div className="fixed bottom-0 w-full">
+				{checkHrefPathName === true ? (
+					<BottomBar pathName={pathName} />
+				) : null}
+			</div>
 		</>
 	)
 }
