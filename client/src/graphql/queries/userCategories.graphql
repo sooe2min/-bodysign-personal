@@ -1,7 +1,0 @@
-query UserCategories {
-	userCategories {
-		id
-		name
-		trainerId
-	}
-}

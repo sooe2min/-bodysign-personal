@@ -1,9 +1,0 @@
-mutation RemoveSession($id: Int!) {
-	removeSession(id: $id) {
-		id
-		userId
-		date
-		trainerId
-		feedback
-	}
-}
