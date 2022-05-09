@@ -9,7 +9,6 @@ const Home: NextPage = () => {
 		<div className="flex flex-col items-center justify-center box-border m-0 p-0">
 			<Head>
 				<title>Bodysign</title>
-				<base href="/"></base>
 			</Head>
 			<div className="flex">
 				<img src={logo} alt="image" width="50rem" height="50rem" />
