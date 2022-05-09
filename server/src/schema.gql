@@ -2,21 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Img {
+type Exercise {
   id: Int
-  url: String!
-  chatId: Int
-  userId: Int
-  trainerId: Int
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  chat: Chat!
+  name: String!
+  exerciseCategoryId: Int!
+  exerciseCategory: ExerciseCategory!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type ExerciseCategory {
+  id: Int
+  name: String!
+  trainerId: Int!
+  trainer: Trainer!
+  exercises: [Exercise]
+}
 
 type Inbody {
   id: Int!
@@ -29,12 +28,55 @@ type Inbody {
   user: User!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type RefreshToken {
   id: Int!
   targetType: String!
   targetId: Int!
   refreshToken: String!
   providerId: Int
+}
+
+type SessionHistory {
+  id: Int
+  status: String!
+  date: DateTime!
+  costPerSession: Int!
+  totalCount: Int!
+  usedCount: Int!
+  commission: Int!
+  userId: Int!
+  trainerId: Int!
+  user: User!
+  trainer: Trainer!
+}
+
+type Img {
+  id: Int
+  url: String!
+  chatId: Int
+  userId: Int
+  trainerId: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  chat: Chat!
+}
+
+type Chat {
+  id: Int
+  text: String!
+  userId: Int!
+  user: User!
+  trainerId: Int!
+  status: String!
+  sender: String!
+  seen: Boolean!
+  trainer: Trainer!
+  imgs: [Img]
 }
 
 type SessionExerciseVolume {
@@ -72,47 +114,6 @@ type Session {
   sessionExercises: [SessionExercise]
 }
 
-type SessionHistory {
-  id: Int
-  status: String!
-  date: DateTime!
-  costPerSession: Int!
-  totalCount: Int!
-  usedCount: Int!
-  commission: Int!
-  userId: Int!
-  trainerId: Int!
-  user: User!
-  trainer: Trainer!
-}
-
-type NonRegisteredUser {
-  id: Int
-  userName: String!
-  phoneNumber: String!
-  graduate: Boolean!
-  gender: String!
-  status: String!
-  trainerId: Int!
-  userCategoryId: Int!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  trainer: Trainer!
-  userCategory: UserCategory!
-}
-
-type UserCategory {
-  id: Int
-  status: String!
-  name: String!
-  trainerId: Int!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  trainer: Trainer!
-  users: [User]
-  nonRegisteredUsers: [NonRegisteredUser]
-}
-
 type User {
   id: Int!
   email: String!
@@ -137,32 +138,31 @@ type User {
   userCategory: UserCategory!
 }
 
-type Chat {
+type UserCategory {
   id: Int
-  text: String!
-  userId: Int!
-  user: User!
-  trainerId: Int!
   status: String!
-  sender: String!
-  seen: Boolean!
-  trainer: Trainer!
-  imgs: [Img]
-}
-
-type Exercise {
-  id: Int
-  name: String!
-  exerciseCategoryId: Int!
-  exerciseCategory: ExerciseCategory!
-}
-
-type ExerciseCategory {
-  id: Int
   name: String!
   trainerId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   trainer: Trainer!
-  exercises: [Exercise]
+  users: [User]
+  nonRegisteredUsers: [NonRegisteredUser]
+}
+
+type NonRegisteredUser {
+  id: Int
+  userName: String!
+  phoneNumber: String!
+  graduate: Boolean!
+  gender: String!
+  status: String!
+  trainerId: Int!
+  userCategoryId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  trainer: Trainer!
+  userCategory: UserCategory!
 }
 
 type TrainerInterest {
