@@ -109,9 +109,18 @@ export class AuthService {
 				targetType: user ? UserType.USER : UserType.TRAINER
 			})
 		).refreshToken
+
+		console.log(owner instanceof User)
+		console.log(
+			this.configService.get(
+				owner instanceof User ? 'userAuthLogin' : 'trainerAuthLogin'
+			)
+		)
+
 		const redirectUrl = this.configService.get(
 			owner instanceof User ? 'userAuthLogin' : 'trainerAuthLogin'
 		)
+
 		console.log(redirectUrl)
 
 		return { accessToken, refreshToken, redirectUrl }
