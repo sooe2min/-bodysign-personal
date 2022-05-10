@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import { removeCookies } from 'cookies-next'
 import { NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
@@ -201,8 +200,7 @@ const UserInfo: NextPage = () => {
 					<button
 						className="font-thin w-[14rem] p-[1.2rem] mt-[0.4rem] text-[1.4rem] border"
 						onClick={() => {
-							removeCookies('accessToken')
-							removeCookies('refreshToken')
+							window.sessionStorage.clear()
 							router.push('/')
 						}}>
 						로그아웃
