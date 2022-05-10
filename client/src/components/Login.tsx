@@ -33,22 +33,19 @@ const Login: NextPage = () => {
 		loginTypeVar('local')
 		try {
 			axios
-				.post(
-					`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/localLogin`,
-					{
-						email: form.email,
-						password: form.password
-					},
-					{
-						withCredentials: true
-					}
-				)
+				.post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/localLogin`, {
+					email: form.email,
+					password: form.password
+				})
 				.then(function (res) {
-					// 액세스 토큰과 리프레쉬 토큰을 var 에 담아두기
-					// accessTokenVar(res.data.accessToken)
-					// refreshTokenVar(res.data.refereshToken)
+					const { accessToken, refreshToken, redirectUrl } = res.data
+
+					// 액세스 토큰과 리프레쉬 토큰을 var에 담아두기
+					window.sessionStorage.setItem('accessToken', accessToken)
+					window.sessionStorage.setItem('refreshToken', refreshToken)
+
 					// ! 여기서 유저나 트레이너 페이지로 이동할 때 해당 유저의 정보를 받아서 이동 (app.tsx에서)
-					router.push(res.data.redirectUrl)
+					router.push(redirectUrl)
 				})
 		} catch (error) {
 			alert('다시 로그인 해주세요')

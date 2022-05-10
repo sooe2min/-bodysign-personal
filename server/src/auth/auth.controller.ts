@@ -11,13 +11,14 @@ import { Request, Response } from 'express'
 import APIStatus from 'src/types/APIStatus.types'
 import { AuthService } from './auth.service'
 import { GoogleAuthGuard } from './guards/google.guard'
+import { RestApiJwtAuthGuard } from './guards/restApi-jwtAuth.guard'
 
 @Controller('auth')
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@Get('profile')
-	// @UseGuards(RestApiJwtAuthGuard)
+	@UseGuards(RestApiJwtAuthGuard)
 	getProfile(@Req() req) {
 		return req.user
 	}
@@ -68,7 +69,9 @@ export class AuthController {
 			.cookie('accessToken', accessToken)
 			.cookie('refreshToken', refreshToken)
 
-		return res.status(APIStatus.CREATED).json({})
+		return res
+			.status(APIStatus.CREATED)
+			.json({ accessToken, refreshToken })
 	}
 
 	@Post('localLogin')

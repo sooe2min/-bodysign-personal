@@ -1,55 +1,57 @@
-import { useReactiveVar } from '@apollo/client'
 import axios from 'axios'
-import { getCookies, removeCookies } from 'cookies-next'
-import { useRouter } from 'next/dist/client/router'
-import { useEffect } from 'react'
+import { NextRouter } from 'next/dist/client/router'
 import { userDataVar } from '../graphql/vars'
+import UserData from '../types/userData'
 
-const AuthHandler = async () => {
-	const router = useRouter()
-	const userData = useReactiveVar(userDataVar)
-
+const AuthHandler = async (router: NextRouter) => {
 	const getProfile = async () => {
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`, {
-				headers: {
-					Authorization: `Bearer ${getCookies().accessToken}`
-				}
-			})
-			.then(res => {
-				userDataVar(res.data)
-			})
-			.catch(async error => {
-				removeCookies('accessToken')
-				await getAccessToken()
-			})
-	}
+		try {
+			const accessToken =
+				window.sessionStorage.getItem('accessToken') || null
 
-	const getAccessToken = async () => {
-		axios
-			.post(
-				`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/accessToken`,
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/profile`,
 				{
-					refreshToken: getCookies().refreshToken
-				},
-				{ withCredentials: true }
+					headers: {
+						Authorization: `Bearer ${accessToken}`
+					}
+				}
 			)
-			.then(async res => {
-				await getProfile()
-			})
-			.catch(error => {
-				router.push('/')
-			})
+
+			const userData: UserData = res.data
+			userDataVar(userData)
+		} catch (error) {
+			const oldRefreshToken =
+				window.sessionStorage.getItem('refreshToken') || null
+			await getAccessToken(oldRefreshToken)
+		}
 	}
 
-	useEffect(() => {
-		if (router.pathname === '/') return
-		if (!getCookies().accessToken) router.push('/')
-		if (userData) return
-		else {
-			getProfile()
+	const getAccessToken = async (oldRefreshToken: string | null) => {
+		try {
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/accessToken`,
+				{ refreshToken: oldRefreshToken }
+			)
+
+			const {
+				accessToken,
+				refreshToken
+			}: { accessToken: string; refreshToken: string } = res.data
+
+			window.sessionStorage.setItem('accessToken', accessToken)
+			window.sessionStorage.setItem('refreshToken', refreshToken)
+			await getProfile()
+		} catch (error) {
+			router.push('/')
 		}
-	}, [router])
+	}
+
+	if (router.pathname === '/') return
+	if (userDataVar()) return
+	else {
+		getProfile()
+	}
 }
 
 export default AuthHandler
