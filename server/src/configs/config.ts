@@ -15,9 +15,9 @@ export const config = () => ({
 		username: process.env.DB_USERNAME,
 		password: process.env.DB_PASSWORD,
 		database: process.env.DB_DATABASE,
-		synchronize: process.env.NODE_ENV === 'prod' ? false : true,
+		synchronize: process.env.NODE_ENV === 'prod' ? true : false,
 		dropSchema: true,
-		entities: [__dirname + '/../**/*.entity.{js,ts}']
+		entities: ['dist/**/*.entity{.ts,.js}']
 	},
 	awsBucketName: process.env.AWS_S3_BUCKET_NAME,
 	port: process.env.PORT,
