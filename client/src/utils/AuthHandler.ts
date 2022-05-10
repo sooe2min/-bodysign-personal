@@ -48,6 +48,7 @@ const AuthHandler = async (router: NextRouter) => {
 	}
 
 	if (router.pathname === '/') return
+	if (router.pathname === '/signup') return
 	if (userDataVar()) return
 	else {
 		getProfile()
