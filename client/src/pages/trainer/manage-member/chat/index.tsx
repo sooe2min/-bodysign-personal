@@ -218,7 +218,7 @@ const Chat: NextPage = () => {
 									chat.sender === SenderReceiver.User
 										? 'self-start bg-[#FED06E]'
 										: 'self-end bg-white text-black border'
-								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem] whitespace-pre-line`}
+								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem] whitespace-pre-wrap`}
 								key={idx}>
 								{chat.text}
 							</div>
