@@ -211,7 +211,7 @@ const Chat: NextPage = () => {
 									chat.sender === SenderReceiver.Trainer
 										? 'self-start bg-[#FED06E]'
 										: 'self-end bg-white text-black border'
-								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem]`}
+								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem] whitespace-pre-wrap`}
 								key={idx}>
 								{chat.text}
 							</div>
@@ -253,6 +253,15 @@ const Chat: NextPage = () => {
 							onChange={e => setMessage(e.target.value)}
 							onFocus={e => {
 								e.target.scrollTop = e.target.scrollHeight
+							}}
+							onKeyDown={e => {
+								if (e.key === 'Enter') {
+									if (!e.shiftKey) {
+										e.preventDefault()
+										sendChat()
+										setMessage('')
+									}
+								}
 							}}
 						/>
 						<button className="h-[3.6rem]" type="submit">

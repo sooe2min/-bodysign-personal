@@ -218,7 +218,7 @@ const Chat: NextPage = () => {
 									chat.sender === SenderReceiver.User
 										? 'self-start bg-[#FED06E]'
 										: 'self-end bg-white text-black border'
-								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem]`}
+								} p-[1.2rem] mb-[0.6rem] rounded-lg font-IBM text-[1.6rem] whitespace-pre-line`}
 								key={idx}>
 								{chat.text}
 							</div>
@@ -257,9 +257,20 @@ const Chat: NextPage = () => {
 							autoFocus={true}
 							disabled={img.readyUpload ? true : false}
 							value={message}
-							onChange={e => setMessage(e.target.value)}
+							onChange={e => {
+								setMessage(e.target.value)
+							}}
 							onFocus={e => {
 								e.target.scrollTop = e.target.scrollHeight
+							}}
+							onKeyDown={e => {
+								if (e.key === 'Enter') {
+									if (!e.shiftKey) {
+										e.preventDefault()
+										sendChat()
+										setMessage('')
+									}
+								}
 							}}
 						/>
 						<button
