@@ -120,10 +120,13 @@ const Chat: NextPage = () => {
 				sender: 'User',
 				imgIds: img.id ? [img.id] : []
 			})
+			setMessage('')
 			setDataUrl('')
 			setImg(prev => {
 				return {
 					...prev,
+					id: 0,
+					url: '',
 					readyUpload: false
 				}
 			})
@@ -259,7 +262,6 @@ const Chat: NextPage = () => {
 									if (!e.shiftKey) {
 										e.preventDefault()
 										sendChat()
-										setMessage('')
 									}
 								}
 							}}
@@ -273,7 +275,6 @@ const Chat: NextPage = () => {
 								width="30"
 								height="30"
 								onClick={() => {
-									setMessage('')
 									sendChat()
 								}}>
 								<path

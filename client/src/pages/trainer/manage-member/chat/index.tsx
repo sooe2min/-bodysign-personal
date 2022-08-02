@@ -119,16 +119,19 @@ const Chat: NextPage = () => {
 
 	const sendChat = async () => {
 		try {
-			socket.emit('sendChat', {
+			await socket.emit('sendChat', {
 				room: `${chatTargetUserId}|${userData?.id}`,
 				text: message,
 				sender: 'Trainer',
 				imgIds: img.id ? [img.id] : []
 			})
+			setMessage('')
 			setDataUrl('')
 			setImg(prev => {
 				return {
 					...prev,
+					id: 0,
+					url: '',
 					readyUpload: false
 				}
 			})
@@ -162,9 +165,7 @@ const Chat: NextPage = () => {
 							/>
 						</svg>
 					</Link>
-					<div className="ml-[0.8rem] font-bold">
-						{userData?.userName} 회원
-					</div>
+					<div className="ml-[0.8rem] font-bold">{userData?.userName} 회원</div>
 				</span>
 
 				<Link href="/trainer/manage-member/chat/photos" passHref>
@@ -268,7 +269,6 @@ const Chat: NextPage = () => {
 									if (!e.shiftKey) {
 										e.preventDefault()
 										sendChat()
-										setMessage('')
 									}
 								}
 							}}
@@ -276,7 +276,6 @@ const Chat: NextPage = () => {
 						<button
 							className="h-[3.6rem]"
 							onClick={() => {
-								setMessage('')
 								sendChat()
 							}}>
 							<svg

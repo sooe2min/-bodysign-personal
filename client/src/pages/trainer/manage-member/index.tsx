@@ -123,9 +123,7 @@ const ManageMember: NextPage = () => {
 		setCategory(category)
 	}
 
-	const handleModal = (
-		e: React.MouseEvent<HTMLDivElement, MouseEvent>
-	) => {
+	const handleModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		if (e !== null && e.target instanceof HTMLDivElement) {
 			setCheckModal(e.target.dataset.checkModal as string)
 			modalVar(true)
@@ -191,9 +189,7 @@ const ManageMember: NextPage = () => {
 					userName: member.userName,
 					gender: member.gender
 				})
-				const url = `/trainer/manage-member/${
-					member.email.split('@')[0]
-				}/info`
+				const url = `/trainer/manage-member/${member.email.split('@')[0]}/info`
 				router.push(url)
 			}
 		} else {
@@ -206,9 +202,7 @@ const ManageMember: NextPage = () => {
 						setDeleteLists(prev => new Set())
 					}
 					if (deleteLists.has(id)) {
-						setDeleteLists(
-							prev => new Set([...prev].filter(el => el !== id))
-						)
+						setDeleteLists(prev => new Set([...prev].filter(el => el !== id)))
 					} else {
 						setDeleteLists(prev => new Set(prev.add(id)))
 					}
@@ -252,17 +246,11 @@ const ManageMember: NextPage = () => {
 										if (member) {
 											let sumUsedCount = 0
 											let sumTotalCount = 0
-											for (
-												let i = 0;
-												i < member.sessionHistories.length;
-												i++
-											) {
+											for (let i = 0; i < member.sessionHistories.length; i++) {
 												sumUsedCount =
-													sumUsedCount +
-													member.sessionHistories[i].usedCount
+													sumUsedCount + member.sessionHistories[i].usedCount
 												sumTotalCount =
-													sumTotalCount +
-													member.sessionHistories[i].totalCount
+													sumTotalCount + member.sessionHistories[i].totalCount
 											}
 
 											return (
@@ -315,9 +303,7 @@ const ManageMember: NextPage = () => {
 														deleteLists={deleteLists}
 														handleManagedMember={handleManagedMember}>
 														<div className="flex">
-															<Avatar
-																gender={nonRegisteredMember.gender}
-															/>
+															<Avatar gender={nonRegisteredMember.gender} />
 															<ColMemberGroup>
 																<div className="text-left">
 																	{nonRegisteredMember.userName} 회원
@@ -333,10 +319,7 @@ const ManageMember: NextPage = () => {
 										}
 									})}
 							{!readyDelete ? (
-								<AddItem
-									dataCheckModal="addmember"
-									handleModal={handleModal}
-								/>
+								<AddItem dataCheckModal="addmember" handleModal={handleModal} />
 							) : null}
 						</Entities>
 					)
@@ -437,10 +420,7 @@ const ManageMember: NextPage = () => {
 											onClick={async e => {
 												// 트레이너와 회원을 연결하는 API
 												try {
-													if (
-														e !== null &&
-														e.target instanceof HTMLElement
-													) {
+													if (e !== null && e.target instanceof HTMLElement) {
 														await findOneUserByPhoneNumberLazyQuery({
 															variables: {
 																phoneNumber: phoneNumber
@@ -478,13 +458,11 @@ const ManageMember: NextPage = () => {
 											required: true
 										})}>
 										{data && data.trainer && data.trainer.userCategories
-											? data.trainer.userCategories.map(
-													(category: any) => (
-														<option value={category.id} key={category.id}>
-															{category.name}
-														</option>
-													)
-											  )
+											? data.trainer.userCategories.map((category: any) => (
+													<option value={category.id} key={category.id}>
+														{category.name}
+													</option>
+											  ))
 											: null}
 									</select>
 								</div>
